@@ -7,18 +7,19 @@ import BrandMark from "@/components/BrandMark";
 import { getTier } from "@/data/tiers";
 import { scoreSession } from "@/lib/scoring";
 import { UNLOCK_PRICE_LABEL } from "@/lib/payment";
-import { StoredSession, loadSession } from "@/lib/session";
+import { StoredSession, loadSession, saveSessionCharge } from "@/lib/session";
 
 /**
  * Where a successful payment lands.
  *
- * Also the `redirect_url` we hand Flutterwave, so a card payment that detours
- * through the bank's 3DS page comes back here rather than to a blank app. The
- * charge is re-verified server-side on arrival — arriving at this URL proves
- * nothing on its own.
+ * Reached two ways: the Inline modal's callback pushes here, and it is also the
+ * `redirect_url` Flutterwave uses for methods that leave the page (some bank
+ * and USSD flows), which return with `transaction_id` / `tx_ref` in the query
+ * string. Either way the transaction is re-verified server-side on arrival —
+ * arriving at this URL, with any query string, proves nothing on its own.
  */
 
-type State = "loading" | "ready" | "unpaid" | "missing";
+type State = "loading" | "ready" | "paid_no_session" | "unpaid" | "missing";
 type MailState = "sending" | "sent" | "failed" | "not_configured";
 
 const LEAN_LABEL: Record<string, string> = {
@@ -28,70 +29,88 @@ const LEAN_LABEL: Record<string, string> = {
   pass: "Passed",
 };
 
+/** The transaction to check: query string first (redirect), then the session. */
+function resolveTransaction(stored: StoredSession | null): { id: string; ref: string } | null {
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("transaction_id");
+    const ref = params.get("tx_ref");
+    if (id && ref) return { id, ref };
+  }
+  if (stored?.charge) return { id: stored.charge.id, ref: stored.charge.reference };
+  return null;
+}
+
 export default function ReceiptPage() {
   const [state, setState] = useState<State>("loading");
   const [session, setSession] = useState<StoredSession | null>(null);
+  const [method, setMethod] = useState<string | null>(null);
+  const [txRef, setTxRef] = useState<string | null>(null);
   const [mail, setMail] = useState<MailState>("sending");
   const [maskedEmail, setMaskedEmail] = useState<string | null>(null);
   const sent = useRef(false);
 
-  const emailReceipt = useCallback(async (stored: StoredSession) => {
-    // React 18 mounts effects twice in dev; without this the user gets two
-    // receipts for one payment.
-    if (sent.current) return;
-    sent.current = true;
+  const emailReceipt = useCallback(
+    async (stored: StoredSession, tx: { id: string; ref: string }) => {
+      // React mounts effects twice in dev; without this the user gets two
+      // receipts for one payment.
+      if (sent.current) return;
+      sent.current = true;
 
-    const score = scoreSession(stored.questions, stored.answers);
-    if (score.nepoPercent === null) return;
+      const score = scoreSession(stored.questions, stored.answers);
+      if (score.nepoPercent === null) return;
 
-    const tier = getTier(score.nepoPercent);
-    try {
-      const res = await fetch("/api/send-receipt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chargeId: stored.charge?.id,
-          reference: stored.charge?.reference,
-          method: stored.charge?.method,
-          tierKey: tier.key,
-          percent: score.nepoPercent,
-          side: score.nepoPercent >= 50 ? "nepo" : "lapo",
-          roastLine: stored.roastLine ?? tier.freeSummary,
-          refCode: stored.refCode,
-          breakdown: score.breakdown,
-        }),
-      });
-      const data = await res.json();
-      if (data.sent) {
-        setMaskedEmail(data.to ?? null);
-        setMail("sent");
-      } else {
-        setMail(data.reason === "email_not_configured" ? "not_configured" : "failed");
+      const tier = getTier(score.nepoPercent);
+      try {
+        const res = await fetch("/api/send-receipt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            transactionId: tx.id,
+            txRef: tx.ref,
+            percent: score.nepoPercent,
+            side: score.nepoPercent >= 50 ? "nepo" : "lapo",
+            roastLine: stored.roastLine ?? tier.freeSummary,
+            refCode: stored.refCode,
+            breakdown: score.breakdown,
+          }),
+        });
+        const data = await res.json();
+        if (data.sent) {
+          setMaskedEmail(data.to ?? null);
+          setMail("sent");
+        } else {
+          setMail(data.reason === "email_not_configured" ? "not_configured" : "failed");
+        }
+      } catch {
+        setMail("failed");
       }
-    } catch {
-      setMail("failed");
-    }
-  }, []);
+    },
+    [],
+  );
 
   useEffect(() => {
     let cancelled = false;
 
     (async () => {
       const stored = loadSession();
+      const tx = resolveTransaction(stored);
 
-      if (!stored || !stored.charge) {
+      if (!tx) {
         if (!cancelled) setState("missing");
         return;
+      }
+
+      // Landing via redirect: persist so a refresh still works.
+      if (stored && stored.charge?.id !== tx.id) {
+        saveSessionCharge({ id: tx.id, reference: tx.ref });
       }
 
       try {
         const res = await fetch("/api/verify-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chargeId: stored.charge.id,
-            reference: stored.charge.reference,
-          }),
+          body: JSON.stringify({ transactionId: tx.id, txRef: tx.ref }),
         });
         const data = await res.json();
         if (cancelled) return;
@@ -100,9 +119,18 @@ export default function ReceiptPage() {
           setState("unpaid");
           return;
         }
+
+        setMethod(data.method ?? null);
+        setTxRef(tx.ref);
+
+        if (!stored) {
+          setState("paid_no_session");
+          return;
+        }
+
         setSession(stored);
         setState("ready");
-        void emailReceipt(stored);
+        void emailReceipt(stored, tx);
       } catch {
         if (!cancelled) setState("unpaid");
       }
@@ -124,7 +152,8 @@ export default function ReceiptPage() {
     );
   }
 
-  if (state === "missing" || state === "unpaid") {
+  if (state === "missing" || state === "unpaid" || state === "paid_no_session") {
+    const paid = state === "paid_no_session";
     return (
       <Centered>
         <BrandMark size={64} />
@@ -132,13 +161,24 @@ export default function ReceiptPage() {
           className="mt-5 text-xl"
           style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--butter)" }}
         >
-          {state === "missing" ? "We lost the thread" : "That payment isn't confirmed"}
+          {paid
+            ? "Payment confirmed"
+            : state === "missing"
+              ? "We lost the thread"
+              : "That payment isn't confirmed"}
         </h1>
         <p className="mt-2 text-sm max-w-xs" style={{ color: "var(--on-dark-muted)" }}>
-          {state === "missing"
-            ? "We couldn't find your result in this tab. If you paid, your receipt is still on its way by email."
-            : "If you've been debited it can take a moment to clear. Your receipt will arrive by email either way."}
+          {paid
+            ? "Your payment went through, but this tab no longer has your answers, so we can't rebuild the breakdown here."
+            : state === "missing"
+              ? "We couldn't find a payment to confirm in this tab."
+              : "If you've been debited it can take a moment to clear. Don't pay again — contact support with your reference."}
         </p>
+        {txRef && (
+          <p className="mt-3 text-[11px]" style={{ fontFamily: "var(--font-mono)", color: "var(--on-dark-muted)" }}>
+            Ref {txRef}
+          </p>
+        )}
         <Link
           href="/"
           className="btn-primary mt-6 px-5 py-2.5 rounded-md text-sm font-medium no-underline"
@@ -192,7 +232,8 @@ export default function ReceiptPage() {
           Receipt
         </h2>
         <Row label="Amount" value={UNLOCK_PRICE_LABEL} />
-        <Row label="Reference" value={stored.charge?.reference ?? "—"} />
+        <Row label="Method" value={method ?? "Flutterwave"} />
+        <Row label="Reference" value={txRef ?? "—"} />
         <Row label="Status" value="Paid" />
       </section>
 

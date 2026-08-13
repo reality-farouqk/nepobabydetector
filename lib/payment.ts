@@ -10,20 +10,33 @@ export const UNLOCK_CURRENCY = "NGN";
 export const UNLOCK_PRICE_LABEL = "₦200";
 
 /** Prefix on every reference we generate, so we can reject refs that aren't ours. */
-export const REFERENCE_PREFIX = "npd";
+export const TX_REF_PREFIX = "npd-";
 
-/**
- * A unique reference for one checkout attempt (v4 calls this `reference`).
- *
- * v4 requires 6-42 **alphanumeric** characters — hyphens and underscores are
- * rejected — so this is base36 timestamp + random, with no separators.
- */
-export function newReference(): string {
-  const stamp = Date.now().toString(36);
-  const rand = crypto.randomUUID().replace(/-/g, "").slice(0, 12);
-  return `${REFERENCE_PREFIX}${stamp}${rand}`;
+/** A unique reference for one checkout attempt (v3 calls this `tx_ref`). */
+export function newTxRef(): string {
+  return `${TX_REF_PREFIX}${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 8)}`;
 }
 
-/** The payment methods this build offers. */
-export const PAYMENT_METHODS = ["card", "ussd", "bank_transfer"] as const;
-export type PaymentMethod = (typeof PAYMENT_METHODS)[number];
+/**
+ * What the hosted modal is allowed to offer. Every one of these is handled
+ * inside Flutterwave's iframe — we never see a card number, a PIN or an OTP.
+ */
+export const PAYMENT_OPTIONS = "card,banktransfer,ussd,account";
+
+/** Maps Flutterwave's `payment_type` onto something worth showing a human. */
+export function paymentTypeLabel(paymentType: string | null): string {
+  switch (paymentType) {
+    case "card":
+      return "Card";
+    case "banktransfer":
+    case "bank_transfer":
+      return "Bank transfer";
+    case "ussd":
+      return "USSD";
+    case "account":
+    case "debitng":
+      return "Bank account";
+    default:
+      return "Flutterwave";
+  }
+}

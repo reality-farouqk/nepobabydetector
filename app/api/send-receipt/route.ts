@@ -2,19 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { getTier } from "@/data/tiers";
 import { EmailConfigError, sendEmail } from "@/lib/email";
 import { FlutterwaveConfigError } from "@/lib/flutterwave";
-import { UNLOCK_PRICE_LABEL } from "@/lib/payment";
+import { UNLOCK_PRICE_LABEL, paymentTypeLabel } from "@/lib/payment";
 import { buildReceiptEmail } from "@/lib/receiptEmail";
 import { BreakdownRow, Lean } from "@/lib/scoring";
-import { fetchCustomerEmail, isPlausibleChargeInput, verifyCharge } from "@/lib/verifyCharge";
+import { isPlausibleTransactionInput, verifyTransaction } from "@/lib/verifyTransaction";
 
 /**
  * Emails the receipt and the full score analysis.
  *
  * Two things are deliberately NOT taken from the request:
  *   - whether the payment succeeded (re-read from Flutterwave), and
- *   - who to send to (read off the paying customer record).
- * Without the second, a single valid charge id would turn this into an open
- * mail relay pointed at any address an attacker likes.
+ *   - who to send to (read off the verified transaction's customer record).
+ * Without the second, a single valid transaction id would turn this into an
+ * open mail relay pointed at any address an attacker likes.
  *
  * The score payload IS client-supplied. That's acceptable — it is the sender's
  * own quiz result and there's nothing to gain by forging it — but it's still
@@ -24,21 +24,14 @@ import { fetchCustomerEmail, isPlausibleChargeInput, verifyCharge } from "@/lib/
 const MAX_BREAKDOWN_ROWS = 20;
 const MAX_TEXT = 400;
 const LEANS: Lean[] = ["nepo", "lapo", "mixed", "pass"];
-const METHOD_LABELS: Record<string, string> = {
-  card: "Card",
-  ussd: "USSD",
-  bank_transfer: "Bank transfer",
-};
 
 interface SendReceiptBody {
-  chargeId?: unknown;
-  reference?: unknown;
-  tierKey?: unknown;
+  transactionId?: unknown;
+  txRef?: unknown;
   percent?: unknown;
   side?: unknown;
   roastLine?: unknown;
   refCode?: unknown;
-  method?: unknown;
   breakdown?: unknown;
 }
 
@@ -52,7 +45,6 @@ function sanitizeBreakdown(value: unknown): BreakdownRow[] {
   return value.slice(0, MAX_BREAKDOWN_ROWS).flatMap((row): BreakdownRow[] => {
     if (!row || typeof row !== "object") return [];
     const r = row as Record<string, unknown>;
-    const lean = LEANS.includes(r.lean as Lean) ? (r.lean as Lean) : "mixed";
     const questionText = str(r.questionText);
     const optionText = str(r.optionText);
     if (!questionText || !optionText) return [];
@@ -60,7 +52,7 @@ function sanitizeBreakdown(value: unknown): BreakdownRow[] {
       {
         questionText,
         optionText,
-        lean,
+        lean: LEANS.includes(r.lean as Lean) ? (r.lean as Lean) : "mixed",
         nepo: Number(r.nepo) || 0,
         lapo: Number(r.lapo) || 0,
       },
@@ -76,7 +68,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ sent: false, reason: "bad_request" }, { status: 400 });
   }
 
-  if (!isPlausibleChargeInput(body.chargeId, body.reference)) {
+  if (!isPlausibleTransactionInput(body.transactionId, body.txRef)) {
     return NextResponse.json({ sent: false, reason: "bad_request" }, { status: 400 });
   }
 
@@ -87,16 +79,16 @@ export async function POST(req: NextRequest) {
 
   try {
     // 1. The payment must be real before we send anything.
-    const outcome = await verifyCharge(body.chargeId as string, body.reference as string);
+    const outcome = await verifyTransaction(
+      body.transactionId as string | number,
+      body.txRef as string,
+    );
     if (!outcome.ok) {
       return NextResponse.json({ sent: false, reason: outcome.reason }, { status: 402 });
     }
 
     // 2. The recipient comes from the payment, not from the caller.
-    const to = outcome.charge.customerId
-      ? await fetchCustomerEmail(outcome.charge.customerId)
-      : null;
-
+    const to = outcome.transaction.customerEmail;
     if (!to) {
       return NextResponse.json({ sent: false, reason: "no_customer_email" }, { status: 422 });
     }
@@ -110,9 +102,9 @@ export async function POST(req: NextRequest) {
       breakdown: sanitizeBreakdown(body.breakdown),
       refCode: str(body.refCode, 32) || "—",
       receipt: {
-        reference: outcome.charge.reference,
+        reference: outcome.transaction.txRef,
         amountLabel: UNLOCK_PRICE_LABEL,
-        method: METHOD_LABELS[str(body.method, 20)] ?? "Card",
+        method: paymentTypeLabel(outcome.transaction.paymentType),
         paidAt: new Date(),
       },
     });
@@ -122,8 +114,8 @@ export async function POST(req: NextRequest) {
       subject,
       html,
       text,
-      // One receipt per charge, however many times this route is called.
-      idempotencyKey: `receipt-${outcome.charge.reference}`,
+      // One receipt per transaction, however many times this route is called.
+      idempotencyKey: `receipt-${outcome.transaction.txRef}`,
     });
 
     return NextResponse.json({ sent: true, to: maskEmail(to) });
@@ -142,6 +134,5 @@ export async function POST(req: NextRequest) {
 function maskEmail(email: string): string {
   const [user, domain] = email.split("@");
   if (!domain) return "your email";
-  const head = user.slice(0, 1);
-  return `${head}${"•".repeat(Math.max(user.length - 1, 1))}@${domain}`;
+  return `${user.slice(0, 1)}${"•".repeat(Math.max(user.length - 1, 1))}@${domain}`;
 }

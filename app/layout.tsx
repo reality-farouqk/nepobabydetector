@@ -6,14 +6,31 @@ import "./globals.css";
  * localhost, which silently ships broken link previews to production.
  * Vercel supplies the deployment host; NEXT_PUBLIC_SITE_URL overrides both.
  */
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
+// Truthiness, not `??`: an env var declared but left blank in .env comes
+// through as "" rather than undefined, and `new URL("")` throws at build time.
+const configuredUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "https://nepodetector.ng");
 
+/**
+ * A bare hostname ("example.com") is the natural thing to put in an env var and
+ * the one thing `new URL()` rejects — which fails the whole build, at
+ * /_not-found, with no mention of the variable at fault. Add the scheme rather
+ * than make everyone rediscover that.
+ */
+function toOrigin(value: string): URL {
+  const withScheme = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+  try {
+    return new URL(withScheme);
+  } catch {
+    return new URL("https://nepodetector.ng");
+  }
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: toOrigin(configuredUrl),
   title: "Nepo Detector",
   description: "Certified Nepo Baby or certified Lapo Baby? Ten questions. No lying allowed.",
   openGraph: {

@@ -19,7 +19,8 @@ export default function Home() {
   const [sessionAnswers, setSessionAnswers] = useState<Answer[]>([]);
   const [photo, setPhoto] = useState<string | null>(null);
   const [roastLine, setRoastLine] = useState<string | null>(null);
-  const [loadingRoast, setLoadingRoast] = useState(false);
+  // Restore alongside the /api/roast call below when the AI roast comes back.
+  // const [loadingRoast, setLoadingRoast] = useState(false);
   // Generated once per session so the ref code stays stable across re-renders
   // (otherwise unlocking the breakdown would silently reissue it).
   const [refCode] = useState(
@@ -35,7 +36,6 @@ export default function Home() {
   async function handlePhotoDone(photoDataUrl: string | null) {
     setPhoto(photoDataUrl);
     setStage("result");
-    setLoadingRoast(true);
 
     const score = scoreSession(sessionQuestions, sessionAnswers);
     let line: string | null = null;
@@ -43,25 +43,33 @@ export default function Home() {
     if (!score.isUndefined && score.nepoPercent !== null) {
       const tier = getTier(score.nepoPercent);
 
-      try {
-        const res = await fetch("/api/roast", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            tierKey: tier.key,
-            tierTitle: tier.title,
-            extremeAnswers: score.extremeAnswers,
-            // photoDescription would come from a vision-model pre-pass on `photoDataUrl`
-            // that extracts only flex-relevant cues (outfit, background) — not implemented
-            // in this build; passing null keeps the roast answer-only for now.
-            photoDescription: null,
-          }),
-        });
-        const data = await res.json();
-        line = data.line;
-      } catch {
-        line = tier.freeSummary;
-      }
+      // The AI roast line is parked for now — every result uses its tier's
+      // written summary instead. `app/api/roast/route.ts` and
+      // `lib/roastFallback.ts` are left intact so this is a one-block revert.
+      //
+      // setLoadingRoast(true);
+      // try {
+      //   const res = await fetch("/api/roast", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({
+      //       tierKey: tier.key,
+      //       tierTitle: tier.title,
+      //       extremeAnswers: score.extremeAnswers,
+      //       // photoDescription would come from a vision-model pre-pass on
+      //       // `photoDataUrl` extracting only flex-relevant cues (outfit,
+      //       // background) — never the raw image.
+      //       photoDescription: null,
+      //     }),
+      //   });
+      //   const data = await res.json();
+      //   line = data.line;
+      // } catch {
+      //   line = tier.freeSummary;
+      // }
+      // setLoadingRoast(false);
+
+      line = tier.freeSummary;
       setRoastLine(line);
     }
 
@@ -75,8 +83,6 @@ export default function Home() {
       photo: photoDataUrl,
       charge: null,
     });
-
-    setLoadingRoast(false);
   }
 
   if (stage === "welcome") {
@@ -133,7 +139,7 @@ export default function Home() {
         tier={tier}
         percent={score.nepoPercent}
         side={side}
-        roastLine={loadingRoast ? "..." : roastLine ?? tier.freeSummary}
+        roastLine={roastLine ?? tier.freeSummary}
         photo={photo}
         refCode={refCode}
       />

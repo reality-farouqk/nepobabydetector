@@ -21,7 +21,9 @@ export interface StoredSession {
   refCode: string;
   /** Data URL. Dropped first if we hit the storage quota. */
   photo: string | null;
-  charge: { id: string; reference: string; method: string } | null;
+  /** Flutterwave transaction id + our tx_ref. The method isn't stored — the
+   *  verify response reports how they actually paid. */
+  charge: { id: string; reference: string } | null;
 }
 
 function write(session: StoredSession): boolean {
