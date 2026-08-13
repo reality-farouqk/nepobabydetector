@@ -1,0 +1,3302 @@
+[
+  {
+    "id": 1,
+    "text": "How did you get your first car?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Dad handed me the keys, didn't even ask the price",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Saved for 2 years, still owe my brother ₦50k",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Company car / still dey take Bolt",
+        "nepo": 3,
+        "lapo": 3
+      },
+      {
+        "key": "D",
+        "text": "Never owned a car, not relevant to me",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "text": "Who paid your last rent?",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"Paid\" is a strong word, I don't remember signing anything",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Me, myself, and a very patient landlord",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Split with roommates, barely",
+        "nepo": 2,
+        "lapo": 6
+      },
+      {
+        "key": "D",
+        "text": "Still live at home / never paid rent",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "text": "What's your relationship with \"connections\"?",
+    "options": [
+      {
+        "key": "A",
+        "text": "My Dad/Uncle IS the connection",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I cold-DM strangers on LinkedIn and pray",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "I know one guy who knows a guy",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Never really needed connections for anything",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "text": "How do you handle an unexpected ₦100k expense?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Text the family group chat, done by evening",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Open 3 loan apps and negotiate with my soul",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Dip into savings and cry a little",
+        "nepo": 3,
+        "lapo": 5
+      },
+      {
+        "key": "D",
+        "text": "Never faced a surprise expense like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "text": "Your first job was...",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"Family friend\" created a role for me",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "47 job applications and 2 interviews later",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Referral from a former classmate",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Haven't had a job yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "text": "How do you vacation?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Dubai every December, it's tradition",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"Vacation\" is a Twitter joke to me",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "One local trip a year if the money speaks",
+        "nepo": 3,
+        "lapo": 5
+      },
+      {
+        "key": "D",
+        "text": "Never really vacation, not my thing",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "text": "Your business idea capital came from...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family \"investment\" (no pitch deck required)",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Ajo, personal savings, and pure faith",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "A small loan I'm still sweating over",
+        "nepo": 2,
+        "lapo": 8
+      },
+      {
+        "key": "D",
+        "text": "Never started a business",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "text": "When wahala hits, your backup plan is...",
+    "options": [
+      {
+        "key": "A",
+        "text": "There's always a family member with a solution",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Me, myself, and a WhatsApp status asking for gigs",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "A mix — one uncle, mostly hustle",
+        "nepo": 5,
+        "lapo": 5
+      },
+      {
+        "key": "D",
+        "text": "Never really faced serious wahala",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "text": "Your wardrobe budget philosophy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Designer or nothing, someone else usually gets the bill",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Aba market and thrift finds, styled like a stylist",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of thrift and the occasional splurge",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Don't really think about it / not applicable",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "text": "If your parents' support disappeared tomorrow...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Genuinely don't know what I'd do first",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Nothing changes, I've been on my own energy since day one",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "It would sting, but I'd survive",
+        "nepo": 4,
+        "lapo": 6
+      },
+      {
+        "key": "D",
+        "text": "No parents in the picture / not applicable",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "text": "Your school fees growing up were...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Never a conversation I was part of, just got paid",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Scholarship, part-time hustle, or a payment plan I still remember",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Paid, but with visible stress each session",
+        "nepo": 3,
+        "lapo": 5
+      },
+      {
+        "key": "D",
+        "text": "Not applicable to me",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "text": "Your phone/laptop upgrade cycle?",
+    "options": [
+      {
+        "key": "A",
+        "text": "New iPhone drops, mine just appears",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I baby this device till the screen cracks in 3 places",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Upgrade when I've saved enough, no rush",
+        "nepo": 3,
+        "lapo": 5
+      },
+      {
+        "key": "D",
+        "text": "Don't really care about gadgets",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "text": "How was your last big health emergency handled?",
+    "options": [
+      {
+        "key": "A",
+        "text": "One call and the hospital bill vanished",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "GoFundMe energy, borrowed from three different people",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Insurance and savings covered it, barely",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Never had a big health emergency",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "text": "Your wedding/owambe budget expectation is...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family's already planning the aso-ebi committee",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I'm the one setting up the contribution WhatsApp group",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Modest event, split between family and personal savings",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not thinking about that right now",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "text": "How did you learn to manage money?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Never really had to — there was always more",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Trial, error, and a lot of \"why is my account like this\"",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Budgeting apps and cautious spreadsheets",
+        "nepo": 3,
+        "lapo": 5
+      },
+      {
+        "key": "D",
+        "text": "Still figuring it out",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "text": "Your networking style at events?",
+    "options": [
+      {
+        "key": "A",
+        "text": "People already know my surname before I speak",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I rehearse my elevator pitch in the bathroom mirror first",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "A bit of both — some doors open, some I knock on",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I don't really attend networking events",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "text": "If you needed a loan guarantor tomorrow...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Three family members would fight over who gets to do it",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I'd be scrolling contacts wondering who still trusts me",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "One or two people I could probably ask",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Never needed a guarantor",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "text": "Your relationship with \"starting from zero\"?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Theoretical concept, never personally tested",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "My daily reality and my whole personality",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Started small, some help got me moving faster",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not something I think about",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "text": "How do family gatherings talk about your career?",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"We already lined up his next three moves\"",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"So when are you getting a real job?\" energy",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mild curiosity, mostly supportive, no pressure",
+        "nepo": 3,
+        "lapo": 3
+      },
+      {
+        "key": "D",
+        "text": "Not something my family discusses",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "text": "Your biggest financial \"cheat code\" has been...",
+    "options": [
+      {
+        "key": "A",
+        "text": "Being born into the right family",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Ajo, side hustles, and sheer stubbornness",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "A good referral or two at the right time",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Honestly, luck and timing",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "text": "When rent or school fees suddenly jump, what's your first move?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Call dad, money lands same day",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Open FairMoney/Carbon/Okash and pray the interest no kill me",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Beg small from siblings then top up with side hustle",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not applicable right now",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "text": "How did you get your first \"real\" job or big opportunity?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Uncle/Aunty just linked me, CV was formality",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Applied 200 times, no connection, pure grind",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Friend referred me after I kept showing up",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Still figuring that out",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "text": "Family WhatsApp group money chat usually looks like…",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"Who needs what? Just send aza\" from parents",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Black tax alert: everybody expecting your salary",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Occasional help both ways, no pressure",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "We no dey discuss money like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "text": "Owambe or wedding season hits. What's your reality?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Parents buy asoebi, I just show face and enjoy",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Calculating asoebi + transport vs next loan repayment",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "I buy one, skip some, balance the vibes",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I dey dodge most of them",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "text": "How do you handle sudden sapa?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Soft life continues, family buffer dey",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Rotate loan apps and pray pepper return sharp-sharp",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Cut spending + small side hustle till it passes",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no reach that level yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "text": "Your parents' money talk with you sounds like…",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"Just focus, we go handle the rest\"",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"You suppose don dey send something home by now\"",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of encouragement and realistic pressure",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "We rarely talk money",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "text": "First car or major flex how e happen?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Gifted or heavily sponsored, papers ready",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Saved aggressively + maybe small loan app top-up",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Combination of savings and family contribution",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Still using bolt/uber or leg",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "text": "When people talk \"just network better,\" your reaction is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Easy, my network already dey the room",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Which room? I still dey try enter the building",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "True but access still matters plenty",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey follow that talk",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "text": "Emergency ₦500k needed tomorrow. Real talk?",
+    "options": [
+      {
+        "key": "A",
+        "text": "One call and e don enter account",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Checking every loan app limit and interest rate sharp",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Family + friends + whatever I fit raise",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I go figure wetin to do if e reach",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "text": "Your long-term money mindset is mostly…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Maintain and grow wetin family already build",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "First-generation hustle: build from zero so kids fit be nepo",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of both, no pure soft landing or pure struggle",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I just dey take am day by day",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "text": "How do you usually pay for data or electricity?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Just transfer, no stress, account always ready",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Wait for salary or borrow small from FairMoney",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Buy in bulk when pepper enter, manage carefully",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Somebody else dey handle am",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "text": "Your last \"I just booked a flight\" moment was…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Parents or family paid, I just chose dates",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Saved for months + maybe small loan top-up",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Split cost or used points/miles somehow",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I never book flight like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "text": "When friends plan expensive hangout, you…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Show up, money no be issue",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Calculate if I fit join or invent excuse",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Suggest cheaper alternative or go for limited time",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey do group hangouts much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "text": "How did university or higher education get funded?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Full family sponsorship, no wahala",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Scholarship hunt + work + loan apps combination",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of family help and personal hustle",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Still in process or not applicable",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "text": "Your phone upgrade cycle looks like…",
+    "options": [
+      {
+        "key": "A",
+        "text": "New flagship whenever I feel like, family support",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Hold old one till e nearly die, then save hard",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mid-range every 2–3 years when I fit",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey upgrade often",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "text": "Someone mentions \"soft life,\" your honest reaction?",
+    "options": [
+      {
+        "key": "A",
+        "text": "That's just normal life for me",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Soft life na after I clear this loan and sapa",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "I chase am but still dey hustle side by side",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey use that word",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "text": "Family house or land matter, wetin concern you?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Already get my own or name dey paper",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I dey build from zero, no inheritance talk yet",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Maybe small share later, nothing guaranteed",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "We no dey discuss property like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "text": "How do you usually handle medical bills?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Private hospital, family covers or insurance sorted",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Government hospital or crowdfund + loan app",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of savings and family contribution",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no get serious medical bill experience",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "text": "Your side hustle situation right now?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Optional, main money already dey flow",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Compulsory, that's how I survive and clear loans",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "I get one or two for extra pepper",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "No side hustle currently",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "text": "When salary or payment delays, you…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Hardly notice, other sources cover everything",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Panic mode + check loan app balances immediately",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Manage carefully till e enter",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Payment no dey delay for me like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "text": "Asoebi price for big event comes out. You…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Just pay, no calculation needed",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Check if I fit or start planning excuse",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Negotiate or buy cheaper alternative",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey do asoebi much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "text": "Your first laptop or work tool how e come?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bought new or gifted by family",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Used/refurbished after long saving or small loan",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Combination of gift and personal contribution",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Still using shared or borrowed",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "text": "People ask \"how you dey make money?\" You answer…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family businesses + investments already running",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Pure hustle, freelancing, multiple small gigs",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Job plus some side things",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey open up about am",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "text": "Holiday or December travel plans usually…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Abroad or premium spots, family sorted",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Stay local or skip if money no reach",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Budget trip with friends or family contribution",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey plan travel like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "text": "When you see \"nepo baby\" tweets, you feel…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Relatable, that's just how life be for some of us",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"Omo this one no be my portion\" energy",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of envy and understanding",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey follow that discourse",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "text": "Your relationship with bank loans or credit?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Easy access, low stress, family backup dey",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Loan apps only, traditional banks no gree me",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Careful use of both when necessary",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I avoid loans completely",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "text": "Who paid for your last big birthday or celebration?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Parents or family fully handled everything",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I hustled the money myself, no help",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Shared between me and close people",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey do big celebrations",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "text": "Job interview or opportunity, first thought is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Who do I know that fit put in word?",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Prepare hard, pure merit, no connection",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Both prepare and ask around quietly",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey interview much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "text": "Your current living situation is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family house or fully sponsored apartment",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Self-paid rent, sometimes struggle to renew",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Shared or partially supported",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Temporary or still sorting",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "text": "When pepper enters, first thing you do?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Upgrade lifestyle a bit, soft life continue",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Clear loans and send some home sharp",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Save some, enjoy small, balance am",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Pepper no dey enter like that yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "text": "Family emergency money request comes. You…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Send without checking balance twice",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Check if I fit after my own bills and loans",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Send what I fit and explain",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Rarely get those requests",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "text": "Your wardrobe mostly comes from…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Shopping sprees or family-sponsored",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Okrika, thrift, or long-term saving for few pieces",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of thrift and occasional new",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey focus on clothes",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "text": "Someone offers \"I fit link you,\" your reaction?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Normal, that's how most things work for me",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Skeptical but hopeful, pure links rare for me",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Appreciate am and still do my part",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey use links like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "text": "How do you feel about \"generational wealth\" talk?",
+    "options": [
+      {
+        "key": "A",
+        "text": "That's the plan, already inside am",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "I'm the one wey go start am for my lineage",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Nice idea but e hard without starting point",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey think that far yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "text": "Your data or subscription habits?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Unlimited everything, no tracking",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Buy small-small, track every MB",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Monthly plans when I fit, manage",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Somebody else dey buy for me",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "text": "Last time you borrowed money, it was from…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family, no interest, no pressure",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Loan app or close friend under stress",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of people with clear repayment plan",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey borrow",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "text": "Career advice you hear most from family?",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"Just take your time, we get your back\"",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"Hustle hard, no time to waste\"",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "\"Work smart and stay consistent\"",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "They no dey give career advice",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "text": "Your idea of \"making it\" includes…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Maintaining the level family already set",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Going from zero to something my kids go inherit",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Comfortable life without extreme either way",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no get clear definition yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "text": "When fuel or transport price jumps, you…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Just pay, no change in movement",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Reduce movement and calculate every trip",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Adjust routes and share costs more",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Transport no be my main wahala",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "text": "Your savings habit currently is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Automatic, surplus always dey",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Save what remain after loans and survival",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Try to save fixed amount monthly",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Savings no dey consistent yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "text": "Big life decision (move cities, start business), first call is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Parents or family for advice and capital",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Myself and maybe close hustle friends",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of family input and personal research",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey make those decisions yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "text": "How often do you experience \"account balance anxiety\"?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Almost never, buffer always dey",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Regularly, especially before salary or after loans",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Sometimes, depends on the month",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey check balance often",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "text": "Your friends' financial level compared to you is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mostly similar or I dey slightly ahead with ease",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Mixed, some dey ahead because of different starting points",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Varied, we no really compare much",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey track friends' money like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "text": "When you hear \"LAPO baby,\" you feel…",
+    "options": [
+      {
+        "key": "A",
+        "text": "That's the opposite of my story",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"Na me be this\" energy fully",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Relatable in some seasons of life",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey use the term",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "text": "Your approach to investing or long-term money?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Already started with family guidance or capital",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Still trying to understand after clearing survival mode",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Small steps with whatever I fit spare",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not started yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "text": "Last time parents or family surprised you with money…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Regular occurrence, no big deal",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Rare or never, I'm usually the one sending",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Happens occasionally for specific needs",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "We no dey do money surprises",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "text": "Your current \"flex\" on social media is mostly…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Real lifestyle, no need to fake",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Carefully chosen moments, real struggle behind",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Balanced, show some but keep some private",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey flex online",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "text": "If salary stops for 3 months, survival plan is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family support covers everything easily",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Loan apps + emergency hustle + cut everything",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Savings + side income + some help",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no wan think about that scenario",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "text": "The phrase that fits your money story most?",
+    "options": [
+      {
+        "key": "A",
+        "text": "\"I no choose my parents but I thank God\"",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"From grass, still climbing, no soft landing\"",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "\"Some help, plenty personal effort\"",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Still writing the story",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "text": "Overall, your starting line in life felt like…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Already halfway to the finish line",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Behind the starting line, pure willpower",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Somewhere in the middle of the pack",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey measure am like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "text": "How do you usually sort food for the week?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Just order or restock, no budget stress",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Calculate every item, sometimes skip meals",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Bulk buy when money enter, manage carefully",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Somebody else dey cook or handle am",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "text": "Your last \"I need new sneakers\" decision went how?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Bought same day, no second thought",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Saved for weeks or used loan app top-up",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Waited for sales or thrift version",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey chase sneakers like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "text": "When friends do \"send your aza for small thing,\" you…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Send sharp without checking balance",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Check if I fit after my own survival money",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Send what I fit and keep receipt mental note",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey do that exchange much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "text": "How did you get into your current skill or course?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family suggested and fully funded the path",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Self-taught or cheap online after long research",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of guidance and personal grinding",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Still exploring options",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "text": "Your reaction to \"japa\" conversations is mostly…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Planning with family support and soft landing ready",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Dreaming but calculating pure self-funding struggle",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Interested but weighing realistic costs carefully",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not really considering am",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "text": "Last time generator or inverter needed fuel/repair…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sorted immediately, no drama",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Waited or borrowed small to fix am",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Managed with what was available till payday",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no get that wahala currently",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "text": "How do you handle \"bring souvenir\" pressure after travel?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Easy, just buy for everyone",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Stress because budget already tight",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Buy for closest people only",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey travel enough for that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "text": "Your current streaming or entertainment subscriptions?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Multiple premiums running no problem",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "One shared or none, data already stress",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "One or two when money reach",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey use them much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "text": "When a business idea comes, first step is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Talk to family for capital and advice",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Start tiny with personal savings or loan app",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Research then raise small from different places",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey chase business ideas yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "text": "How often do you experience \"transfer failed, insufficient funds\"?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Almost never",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "More than I want to admit",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Occasionally during tight weeks",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey transfer like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "text": "Your approach to Valentine or special day gifts?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Sorted, money no be the blocker",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Creative low-budget or skip if pressure too much",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Thoughtful within whatever I fit",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey do those days much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "text": "Last professional course or certification how e happen?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Fully sponsored or family pushed am",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Self-funded after months of saving",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Partial help plus personal contribution",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not done any recently",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "text": "When NEPA takes light for long, your backup is…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Inverter or generator always ready",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Torch, power bank, and endurance",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Small generator shared or managed carefully",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Light no dey disturb me like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "text": "How do you usually discover new money opportunities?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family or close network drops them",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Endless scrolling, applying, and pure luck",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of referrals and personal search",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey actively look currently",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "text": "Your feeling when someone says \"money no be everything\"?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Easy to say when e never stress you",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "True but try tell that to my loan app",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Agree but still dey chase stability",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey enter that debate",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "text": "Last time you upgraded your work setup (desk, chair, etc.)…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Just ordered what I wanted",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Made do with what was available for long",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Gradual improvements when money entered",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Setup no be priority yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "text": "How do you handle \"family contribution\" for events?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pay full share without hesitation",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Negotiate or contribute what remain after bills",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Give reasonable amount based on capacity",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Rarely get asked",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "text": "Your relationship with \"buy now pay later\" or installments?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Use freely, repayment no be stress",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Careful or avoid because interest go finish me",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Only for necessary things with clear plan",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey use them",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "text": "When content creators flex luxury, you think…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Normal, some people just get am easy",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"Which loan app or hustle fund this one?\"",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of inspiration and reality check",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey follow that content",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "text": "How was your first major device (laptop/phone) insured or protected?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Proper cover sorted from day one",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "No cover, just careful and prayer",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Basic protection when I fit afford",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not applicable yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "text": "Your current \"emergency fund\" status?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Solid buffer already sitting",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Still trying to build after clearing debts",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Small one growing slowly",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not started properly",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "text": "When someone younger asks for money advice, you say…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Network well and use family advantages smartly",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Hustle hard, trust no soft landing",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Skill up and manage whatever starting point you get",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey give money advice yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "text": "Last salon, barber, or self-care appointment…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Regular premium spots, no issue",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Stretch intervals or DIY when money tight",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Decent places when I fit",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey prioritize am much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "text": "How do you usually receive big payments or gifts?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Multiple channels, family transfers common",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Mainly salary or hustle money, rare gifts",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Mix of work and occasional support",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Payments no dey big like that yet",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "text": "Your stance on \"fake it till you make it\" flexing?",
+    "options": [
+      {
+        "key": "A",
+        "text": "No need, real life already matching",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Sometimes necessary so people no look down",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Prefer quiet progress over performance",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey flex at all",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "text": "When fuel scarcity or price hike hits hard…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Still move normal, cost absorbed",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Reduce trips drastically and calculate every drop",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Adjust but still find way",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Transport no be my main issue",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "text": "How did you get your current professional network?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Family introductions and existing circles",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Cold outreach, events, and pure persistence",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Combination of both over time",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Network still small",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "text": "Your reaction to \"rich kids problems\" content?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Relatable in some ways",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "\"Abeg bring real problems\" energy",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Entertaining but distant",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey watch that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "text": "Last time you paid for someone else's meal or bill…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Regular, no second thought",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Rare and only when I truly fit",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "When the vibe and money align",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey do that often",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "text": "How do you view \"building generational wealth\" goals?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Already in motion from previous generation",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "The main reason I dey grind this hard",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Nice target but focus on stability first",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Too far ahead to think about",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "text": "Your typical reaction to sudden \"school fees\" or training cost?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Covered without disrupting anything",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Scramble, loan apps, or postpone",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Plan and contribute what possible",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not facing that currently",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "text": "How often do you replace basic home items (fan, kettle, etc.)?",
+    "options": [
+      {
+        "key": "A",
+        "text": "As soon as e spoil or I want upgrade",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Manage until e completely die",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Replace when necessary and money reach",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Items no dey spoil for me like that",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "text": "When planning a group trip, your role is usually…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ready to cover more if needed",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Strict budget voice so nobody overspend",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Balanced contributor and planner",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey join group trips much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "text": "Your current relationship with side-income streams?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Optional extras on already solid base",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Essential survival and debt-clearing tools",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Useful boosts when available",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "No extra streams currently",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "text": "How do you feel about people who \"never hustled\"?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Different starting points exist, no judgment",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Hard to relate, my whole life na hustle",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Understand both sides of the coin",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey judge people's paths",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "text": "Last major app or software subscription you paid for…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Business or lifestyle tools, no issue",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Only free versions when desperate",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Paid when it truly added value",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Not using paid ones much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "text": "When family asks \"when you go buy land/house?\", you…",
+    "options": [
+      {
+        "key": "A",
+        "text": "Already on the path or discussing options",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Laugh small, still dey clear basic survival",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Working towards am gradually",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "Topic no dey come up",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "text": "Your approach to \"soft life\" content online?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Feels familiar, just documenting normal",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Motivation mixed with \"one day\" hope",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Enjoy watching but stay grounded",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I scroll past most of am",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "text": "How do you usually celebrate small wins?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Nice dinner or small upgrade easily",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "Quiet thankfulness, money still tight",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Small treat within budget",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I no dey celebrate small wins much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "text": "Overall, your money anxiety level day-to-day?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Low, systems and support dey",
+        "nepo": 10,
+        "lapo": 0
+      },
+      {
+        "key": "B",
+        "text": "High, always calculating next move",
+        "nepo": 0,
+        "lapo": 10
+      },
+      {
+        "key": "C",
+        "text": "Medium, manageable with planning",
+        "nepo": 4,
+        "lapo": 4
+      },
+      {
+        "key": "D",
+        "text": "I try not to think about am too much",
+        "nepo": 0,
+        "lapo": 0
+      }
+    ]
+  }
+]

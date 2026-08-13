@@ -81,6 +81,40 @@ Three methods are wired up:
 > 3. **Webhooks.** Polling is a stand-in. Async methods should be confirmed by a
 >    webhook so a user who closes the tab still gets what they paid for.
 
+## Receipt, redirect and email
+
+Paying redirects to `/receipt` rather than revealing the breakdown in place.
+That page is also the `redirect_url` handed to Flutterwave, so a card that
+detours through the bank's 3DS screen comes back to it.
+
+Because both trips destroy React state, a run of the quiz is persisted to
+`sessionStorage` (`lib/session.ts`). The charge is recorded the moment it is
+created — not on success — since a 3DS payment leaves the site before any
+success handler runs. Photos are dropped first if the write hits the storage
+quota; losing the picture beats losing the paid-for result.
+
+On arrival `/receipt` re-verifies the charge server-side (landing on the URL
+proves nothing), renders the full line-by-line analysis, and calls
+`/api/send-receipt`.
+
+### What the email contains
+
+Receipt (amount, method, reference, date), the result, every answer with which
+way it leaned, an honest reading of what the score actually measured, and a
+closing section of encouragement written per tier in `data/encouragement.ts`.
+The tone deliberately shifts there — the app is a joke, that part isn't.
+
+Set `RESEND_API_KEY` and `EMAIL_FROM` to switch sending on. Without them the
+receipt page still shows everything and just says email is off. The provider
+lives entirely in `lib/email.ts`; swapping to Postmark/SES means rewriting that
+one function.
+
+> **Two things are deliberately not taken from the request body:** whether the
+> payment succeeded (re-read from Flutterwave) and who to email (read off the
+> paying customer record). Without the second, one valid charge id would turn
+> the endpoint into an open mail relay. Both checks live in `lib/verifyCharge.ts`
+> so the unlock and the email can never drift apart.
+
 ## Brand palette
 
 Four colours, defined once in `app/globals.css`:

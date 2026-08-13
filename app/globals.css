@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Brand palette
+   Dark Indigo #23003F · Red #F94500 · Light Purple #BCACCE · Light Yellow #FFFDB4
+   Everything below is either one of those four or a tint/shade derived from them.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-indigo: #23003f;
+  --color-orange: #f94500;
+  --color-lilac: #bcacce;
+  --color-butter: #fffdb4;
+}
+
+:root {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Raw palette */
+  --indigo: #23003f;
+  --orange: #f94500;
+  --lilac: #bcacce;
+  --butter: #fffdb4;
+
+  /* Derived shades */
+  --indigo-900: #17002a;
+  --indigo-700: #340060;
+  --indigo-600: #46127a;
+  --indigo-500: #5b2e86;
+  --lilac-100: #efe9f5;
+  --lilac-200: #ded4e8;
+  --butter-300: #d9d37b;
+  --orange-700: #b83100;
+  --orange-100: #ffdcc9;
+
+  /* Surfaces */
+  --paper-bg: var(--indigo); /* page */
+  --paper: var(--butter); /* the certificate card */
+  --surface-raised: var(--indigo-700); /* option cards, panels on the page */
+  --border-dark: #563a73;
+  --divider: var(--butter-300); /* dashed rules on the paper card */
+
+  /* Text on the dark page */
+  --on-dark: #efe9f5;
+  --on-dark-muted: var(--lilac);
+
+  /* Text on the paper card */
+  --ink: var(--indigo);
+  --ink-soft: #3a2350;
+  --muted: #574168;
+  --muted-2: #6e5c7d;
+
+  /* Accents — "gold" is the nepo side, "red" is the lapo side */
+  --gold: var(--indigo-500);
+  --gold-text: var(--indigo-600);
+  --gold-fill: var(--lilac-200);
+  --red: var(--orange);
+  --red-text: var(--orange-700);
+  --red-fill: var(--orange-100);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper-bg);
+  color: var(--on-dark);
+}
+
+::selection {
+  background: var(--orange);
+  color: var(--butter);
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+/* --- Interactive primitives ---------------------------------------------- */
+
+/* Answer / choice card on the dark page */
+.option-btn {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-dark);
+  color: var(--on-dark);
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.option-btn:hover {
+  background: var(--indigo-600);
+  border-color: var(--lilac);
+}
+.option-btn:active {
+  transform: scale(0.99);
+}
+
+/* Loud call to action */
+.btn-primary {
+  background: var(--orange);
+  color: var(--butter);
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--orange-700);
+}
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.99);
+}
+/* Dimming orange with opacity muddies it against indigo — go fully inert instead */
+.btn-primary:disabled {
+  background: var(--border-dark);
+  color: var(--on-dark-muted);
+  cursor: not-allowed;
+}
+
+/* Quiet secondary action on the dark page */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-dark);
+  color: var(--on-dark-muted);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--lilac);
+  color: var(--on-dark);
+}
+
+/* Panel that sits on the dark page (paywall, breakdown) */
+.panel {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-dark);
+}
+
+/* --- Welcome splash ------------------------------------------------------ */
+
+@keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mark-idle {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+/* The dashed certificate ring sweeps like a detector. The glass itself stays
+   upright — it reads as an object, so rotating it would look broken. */
+@keyframes ring-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.brand-ring {
+  transform-origin: 75px 75px;
+  animation: ring-sweep 9s linear infinite;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.welcome-mark {
+  animation:
+    mark-in 620ms cubic-bezier(0.2, 0.9, 0.3, 1.3) both,
+    mark-idle 2.4s ease-in-out 620ms infinite;
+}
+
+.welcome-rise {
+  animation: rise-in 460ms ease-out both;
+}
+
+.welcome-bar {
+  transform-origin: left;
+  animation: bar-fill var(--welcome-duration) linear both;
+}
+
+/* Respect users who'd rather not be moved: show the end state immediately. */
+@media (prefers-reduced-motion: reduce) {
+  .welcome-mark,
+  .welcome-rise,
+  .welcome-bar,
+  .brand-ring {
+    animation: none;
+  }
+  .welcome-bar {
+    transform: scaleX(1);
+  }
+}
