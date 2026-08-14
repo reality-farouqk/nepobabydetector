@@ -5,9 +5,9 @@
  * trusting the amount the browser reports, so a tampered client can't unlock
  * the breakdown by claiming it paid ₦1.
  */
-export const UNLOCK_PRICE = 200; // Flutterwave NGN amounts are in naira, not kobo
+export const UNLOCK_PRICE = 499; // Flutterwave NGN amounts are in naira, not kobo
 export const UNLOCK_CURRENCY = "NGN";
-export const UNLOCK_PRICE_LABEL = "₦200";
+export const UNLOCK_PRICE_LABEL = "₦499";
 
 /** Prefix on every reference we generate, so we can reject refs that aren't ours. */
 export const TX_REF_PREFIX = "npd-";

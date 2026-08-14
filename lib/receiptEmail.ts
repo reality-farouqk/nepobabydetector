@@ -1,6 +1,7 @@
 import { ENCOURAGEMENT, UNIVERSAL_CLOSE } from "@/data/encouragement";
 import { Tier } from "@/data/tiers";
 import { BreakdownRow } from "@/lib/scoring";
+import { SITE_DOMAIN } from "@/lib/site";
 
 /**
  * Builds the receipt + full-analysis email.
@@ -25,7 +26,6 @@ export interface ReceiptEmailInput {
   side: "nepo" | "lapo";
   roastLine: string;
   breakdown: BreakdownRow[];
-  refCode: string;
   receipt: {
     reference: string;
     amountLabel: string;
@@ -70,17 +70,18 @@ export function buildReceiptEmail(input: ReceiptEmailInput): {
   html: string;
   text: string;
 } {
-  const { tier, percent, side, roastLine, breakdown, refCode, receipt } = input;
+  const { tier, percent, side, roastLine, breakdown, receipt } = input;
   const copy = ENCOURAGEMENT[tier.key as keyof typeof ENCOURAGEMENT];
   const sideLabel = side === "nepo" ? "Nepo" : "Lapo";
   const paidOn = formatDate(receipt.paidAt);
 
   const subject = `Your Nepo Detector result: ${tier.title} (${percent}% ${sideLabel.toLowerCase()})`;
 
+  // No reference row. It means nothing to the reader, and the transaction ref
+  // is already on the Flutterwave record if a payment ever needs tracing.
   const receiptRows: [string, string][] = [
     ["Amount", receipt.amountLabel],
     ["Method", receipt.method],
-    ["Reference", receipt.reference],
     ["Date", paidOn],
     ["Status", "Paid"],
   ];
@@ -125,7 +126,6 @@ export function buildReceiptEmail(input: ReceiptEmailInput): {
         <div style="color:${INK_SOFT};font-size:14px;font-style:italic;line-height:1.6;margin-top:12px;">
           &ldquo;${esc(roastLine)}&rdquo;
         </div>
-        <div style="color:#8A7A96;font-size:11px;margin-top:14px;">Ref ${esc(refCode)}</div>
       </td></tr>
     </table>
 
@@ -205,7 +205,7 @@ export function buildReceiptEmail(input: ReceiptEmailInput): {
 
   <tr><td style="background:${INDIGO};padding:20px 28px;text-align:center;border-radius:0 0 10px 10px;">
     <div style="color:${LILAC};font-size:12px;line-height:1.6;">
-      nepodetector.ng &middot; a bit of fun, not financial advice
+      ${esc(SITE_DOMAIN)} &middot; a bit of fun, not financial advice
     </div>
   </td></tr>
 
@@ -221,7 +221,6 @@ export function buildReceiptEmail(input: ReceiptEmailInput): {
     `RESULT`,
     `${percent}% ${sideLabel.toLowerCase()} score — ${tier.title}`,
     `"${roastLine}"`,
-    `Ref ${refCode}`,
     ``,
     `RECEIPT`,
     ...receiptRows.map(([label, value]) => `${label}: ${value}`),
@@ -239,7 +238,7 @@ export function buildReceiptEmail(input: ReceiptEmailInput): {
     ``,
     ...UNIVERSAL_CLOSE,
     ``,
-    `nepodetector.ng — a bit of fun, not financial advice`,
+    `${SITE_DOMAIN} — a bit of fun, not financial advice`,
   ].join("\n");
 
   return { subject, html, text };

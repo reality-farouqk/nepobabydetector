@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { decodeAnswers, encodeAnswers } from "@/lib/answersCodec";
 import { FlutterwaveConfigError, flwFetch } from "@/lib/flutterwave";
 import {
   PAYMENT_OPTIONS,
@@ -23,7 +24,7 @@ import {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
-  let body: { email?: unknown };
+  let body: { email?: unknown; answers?: unknown; refCode?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -34,6 +35,11 @@ export async function POST(req: NextRequest) {
   if (!EMAIL_RE.test(email) || email.length > 254) {
     return NextResponse.json({ error: "invalid_email" }, { status: 400 });
   }
+
+  // Re-encoded from the decoded form so nothing arbitrary is forwarded to
+  // Flutterwave: anything that isn't a question we ask is dropped here.
+  const answers = encodeAnswers(decodeAnswers(body.answers));
+  const refCode = typeof body.refCode === "string" ? body.refCode.slice(0, 32) : "";
 
   const txRef = newTxRef();
 
@@ -51,6 +57,9 @@ export async function POST(req: NextRequest) {
           title: "Nepo Detector",
           description: "Unlock your full breakdown",
         },
+        // Rides along with the transaction so the webhook can rebuild the full
+        // analysis for someone who pays and never comes back to the tab.
+        meta: { answers, ref_code: refCode },
       }),
     });
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { Tier } from "@/data/tiers";
+import { SITE_DOMAIN } from "@/lib/site";
 
 export default function ResultCard({
   tier,
@@ -8,7 +9,6 @@ export default function ResultCard({
   side,
   roastLine,
   photo,
-  refCode,
   format = "portrait",
 }: {
   tier: Tier;
@@ -16,7 +16,6 @@ export default function ResultCard({
   side: "nepo" | "lapo";
   roastLine: string;
   photo: string | null;
-  refCode: string;
   format?: "portrait" | "square";
 }) {
   const isGold = tier.accent === "gold";
@@ -137,7 +136,9 @@ export default function ResultCard({
             <div className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>
               <Row label="Status" value="Successful" valueColor={arcText} />
               <Row label={`${side === "nepo" ? "Nepo" : "Lapo"} score`} value={`${percent}%`} />
-              <Row label="Ref" value={refCode} />
+              {/* No reference number: it means nothing to the person holding
+                  the certificate and clutters a thing meant to be shared. The
+                  tx_ref stays server-side, where it's actually used. */}
               <Row label="Date" value={new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} />
             </div>
             <div className="border-t border-dashed my-3.5" style={{ borderColor: "var(--divider)" }} />
@@ -155,7 +156,7 @@ export default function ResultCard({
           className="mt-auto pt-3.5 flex items-center justify-between text-[10.5px] tracking-wide"
           style={{ fontFamily: "var(--font-mono)", color: "var(--muted-2)" }}
         >
-          <span>nepodetector.ng</span>
+          <span>{SITE_DOMAIN}</span>
         </div>
       </div>
     </div>

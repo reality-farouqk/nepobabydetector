@@ -4,8 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ResultCard from "@/components/ResultCard";
 import BrandMark from "@/components/BrandMark";
+import { ENCOURAGEMENT, UNIVERSAL_CLOSE } from "@/data/encouragement";
 import { getTier } from "@/data/tiers";
-import { scoreSession } from "@/lib/scoring";
+import ShareCard from "@/components/ShareCard";
+import { encodeAnswers } from "@/lib/answersCodec";
+import { BreakdownRow, scoreSession } from "@/lib/scoring";
 import { UNLOCK_PRICE_LABEL } from "@/lib/payment";
 import { StoredSession, loadSession, saveSessionCharge } from "@/lib/session";
 
@@ -41,9 +44,18 @@ function resolveTransaction(stored: StoredSession | null): { id: string; ref: st
   return null;
 }
 
+/** A result rebuilt server-side from the transaction, when the tab has none. */
+interface RebuiltResult {
+  percent: number;
+  side: "nepo" | "lapo";
+  tierKey: string;
+  breakdown: BreakdownRow[];
+}
+
 export default function ReceiptPage() {
   const [state, setState] = useState<State>("loading");
   const [session, setSession] = useState<StoredSession | null>(null);
+  const [rebuilt, setRebuilt] = useState<RebuiltResult | null>(null);
   const [method, setMethod] = useState<string | null>(null);
   const [txRef, setTxRef] = useState<string | null>(null);
   const [mail, setMail] = useState<MailState>("sending");
@@ -51,28 +63,24 @@ export default function ReceiptPage() {
   const sent = useRef(false);
 
   const emailReceipt = useCallback(
-    async (stored: StoredSession, tx: { id: string; ref: string }) => {
+    async (stored: StoredSession | null, tx: { id: string; ref: string }) => {
       // React mounts effects twice in dev; without this the user gets two
       // receipts for one payment.
       if (sent.current) return;
       sent.current = true;
 
-      const score = scoreSession(stored.questions, stored.answers);
-      if (score.nepoPercent === null) return;
-
-      const tier = getTier(score.nepoPercent);
       try {
         const res = await fetch("/api/send-receipt", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          // Only the answers go up — the server recomputes the score itself
+          // rather than taking our word for the result.
+          // With no local session the server falls back to the answers stored
+          // on the transaction, so this still sends the right analysis.
           body: JSON.stringify({
             transactionId: tx.id,
             txRef: tx.ref,
-            percent: score.nepoPercent,
-            side: score.nepoPercent >= 50 ? "nepo" : "lapo",
-            roastLine: stored.roastLine ?? tier.freeSummary,
-            refCode: stored.refCode,
-            breakdown: score.breakdown,
+            answers: stored ? encodeAnswers(stored.answers) : undefined,
           }),
         });
         const data = await res.json();
@@ -123,7 +131,27 @@ export default function ReceiptPage() {
         setMethod(data.method ?? null);
         setTxRef(tx.ref);
 
+        // No local answers — the tab was closed, the phone killed the app
+        // during checkout, or this link was opened on another device. The
+        // answers travelled with the transaction for exactly this case, so
+        // rebuild from the server rather than showing a paying customer an
+        // apology.
         if (!stored) {
+          const rebuiltRes = await fetch("/api/receipt-data", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ transactionId: tx.id, txRef: tx.ref }),
+          });
+          const rebuiltData = await rebuiltRes.json();
+          if (cancelled) return;
+
+          if (rebuiltData.ok && rebuiltData.result) {
+            setRebuilt(rebuiltData.result);
+            setState("ready");
+            void emailReceipt(null, tx);
+            return;
+          }
+
           setState("paid_no_session");
           return;
         }
@@ -169,7 +197,7 @@ export default function ReceiptPage() {
         </h1>
         <p className="mt-2 text-sm max-w-xs" style={{ color: "var(--on-dark-muted)" }}>
           {paid
-            ? "Your payment went through, but this tab no longer has your answers, so we can't rebuild the breakdown here."
+            ? "Your payment went through and your full breakdown is on its way by email — this tab just can't rebuild it. Check your inbox."
             : state === "missing"
               ? "We couldn't find a payment to confirm in this tab."
               : "If you've been debited it can take a moment to clear. Don't pay again — contact support with your reference."}
@@ -189,10 +217,16 @@ export default function ReceiptPage() {
     );
   }
 
-  const stored = session!;
-  const score = scoreSession(stored.questions, stored.answers);
-  const percent = score.nepoPercent ?? 50;
+  // Two sources, one shape: the answers this tab still holds, or the copy the
+  // server rebuilt from the transaction. Everything below renders the same
+  // either way — only the optional photo is local-only.
+  const stored = session;
+  const localScore = stored ? scoreSession(stored.questions, stored.answers) : null;
+
+  const percent = localScore?.nepoPercent ?? rebuilt?.percent ?? 50;
+  const breakdown = localScore?.breakdown ?? rebuilt?.breakdown ?? [];
   const tier = getTier(percent);
+  const encouragement = ENCOURAGEMENT[tier.key as keyof typeof ENCOURAGEMENT];
   const side = percent >= 50 ? "nepo" : "lapo";
 
   return (
@@ -219,9 +253,8 @@ export default function ReceiptPage() {
         tier={tier}
         percent={percent}
         side={side}
-        roastLine={stored.roastLine ?? tier.freeSummary}
-        photo={stored.photo}
-        refCode={stored.refCode}
+        roastLine={stored?.roastLine ?? tier.freeSummary}
+        photo={stored?.photo ?? null}
       />
 
       <section className="panel rounded-md px-4 py-4 mt-5">
@@ -233,7 +266,6 @@ export default function ReceiptPage() {
         </h2>
         <Row label="Amount" value={UNLOCK_PRICE_LABEL} />
         <Row label="Method" value={method ?? "Flutterwave"} />
-        <Row label="Reference" value={txRef ?? "—"} />
         <Row label="Status" value="Paid" />
       </section>
 
@@ -245,7 +277,7 @@ export default function ReceiptPage() {
           Your answers, line by line
         </h2>
         <ul className="space-y-3">
-          {score.breakdown.map((row, i) => (
+          {breakdown.map((row, i) => (
             <li
               key={i}
               className="pt-3"
@@ -269,6 +301,41 @@ export default function ReceiptPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <ShareCard percent={percent} tierTitle={tier.title} side={side} />
+
+      {/*
+        Peak-end rule: what people remember is the peak and the ending. Ending
+        on a table of their own answers wastes that, so the closing note is the
+        encouragement — the one part of this worth re-reading.
+      */}
+      <section className="mt-6 px-1">
+        <h2
+          className="text-[11px] tracking-[0.14em] uppercase mb-3"
+          style={{ fontFamily: "var(--font-mono)", color: "var(--on-dark-muted)" }}
+        >
+          Now the part that isn&apos;t a joke
+        </h2>
+        {encouragement.paragraphs.map((p, i) => (
+          <p
+            key={i}
+            className="text-[13.5px] leading-relaxed mb-3"
+            style={{ color: "var(--on-dark)" }}
+          >
+            {p}
+          </p>
+        ))}
+        <div className="h-px my-4" style={{ background: "var(--border-dark)" }} />
+        {UNIVERSAL_CLOSE.map((p, i) => (
+          <p
+            key={i}
+            className="text-[13.5px] leading-relaxed mb-3"
+            style={{ color: "var(--on-dark-muted)" }}
+          >
+            {p}
+          </p>
+        ))}
       </section>
 
       <Link

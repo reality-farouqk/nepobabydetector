@@ -21,6 +21,8 @@ export interface VerifiedTransaction {
   /** v3 returns the payer inline, so no second lookup is needed for the email. */
   customerEmail: string | null;
   paymentType: string | null;
+  /** Whatever we attached at checkout — carries the encoded quiz answers. */
+  meta: Record<string, unknown> | null;
 }
 
 interface VerifyEnvelope {
@@ -34,6 +36,7 @@ interface VerifyEnvelope {
     status?: string;
     payment_type?: string;
     customer?: { email?: string };
+    meta?: Record<string, unknown> | null;
   };
 }
 
@@ -94,6 +97,7 @@ export async function verifyTransaction(
       txRef: tx!.tx_ref!,
       customerEmail: tx!.customer?.email ?? null,
       paymentType: tx!.payment_type ?? null,
+      meta: tx!.meta ?? null,
     },
   };
 }

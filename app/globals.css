@@ -201,8 +201,71 @@ body {
   animation: bar-fill var(--welcome-duration) linear both;
 }
 
+/* --- Paywall dialog ------------------------------------------------------ */
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.paywall-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 0, 20, 0.72);
+  backdrop-filter: blur(3px);
+  animation: backdrop-in 180ms ease-out both;
+}
+
+.paywall-dialog {
+  position: relative;
+  animation: dialog-in 240ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  box-shadow: 0 24px 60px rgba(10, 0, 20, 0.6);
+}
+
+/* Each quiz question slides in, so the flow reads as a machine responding
+   rather than a form swapping its own text. */
+@keyframes question-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.question-enter {
+  animation: question-in 220ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
 /* Respect users who'd rather not be moved: show the end state immediately. */
 @media (prefers-reduced-motion: reduce) {
+  .question-enter,
+  .paywall-backdrop,
+  .paywall-dialog {
+    animation: none;
+  }
   .welcome-mark,
   .welcome-rise,
   .welcome-bar,

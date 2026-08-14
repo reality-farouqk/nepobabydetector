@@ -22,7 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Checkout (Flutterwave v3 Standard)
 
-The ₦200 breakdown unlock uses [Flutterwave Standard](https://developer.flutterwave.com/docs/flutterwave-standard-1)
+The ₦499 breakdown unlock uses [Flutterwave Standard](https://developer.flutterwave.com/docs/flutterwave-standard-1)
 — a hosted payment page on Flutterwave's own domain.
 
 Set `FLW_SECRET_KEY` in `.env.local` and that's the whole payment config. There
@@ -64,13 +64,48 @@ the unlock route and the email route can't drift apart.
 - The old v4 code (OAuth, card encryption, OTP/PIN routes, bank picker) has been
   removed rather than left dormant.
 
+### Webhook
+
+The redirect can't be the only completion signal: someone who pays and closes
+the tab would be charged and get nothing, because the browser is the only thing
+that knows their result. `POST /api/webhooks/flutterwave` is the safety net.
+
+**Dashboard setup** — Settings → Webhooks:
+
+| Field | Value |
+| --- | --- |
+| URL | `https://nepodetector.farouqkdesigns.com/api/webhooks/flutterwave` |
+| Secret hash | any long random string — put the **same** value in `FLW_SECRET_HASH` |
+
+How the result survives without a database: the quiz answers are encoded to a
+compact string (`"1A.2B.3C…"`, ~30 chars) and attached to the transaction's
+`meta` at checkout. The webhook reads them back, recomputes the score
+server-side from `data/questions.json`, and sends the same email the receipt
+page would. Flutterwave stores the state for us.
+
+Safety properties, each covered by a test:
+
+- **No secret hash configured → 503.** It refuses to run unauthenticated rather
+  than trust whoever found the URL.
+- **Missing or wrong `verif-hash` → 401**, compared in constant time so the
+  secret can't be recovered by timing the response.
+- **A correctly-signed payload claiming success proves nothing.** The
+  transaction is re-read from Flutterwave before any email goes out, so a forged
+  body with a leaked hash still can't trigger mail.
+- **Only `charge.completed` + `successful` acts**; everything else is
+  acknowledged and dropped.
+- **200 for anything finished with, 5xx only for genuinely transient failures** —
+  Flutterwave retries 3 times at 30-minute intervals, so acknowledging things
+  that will never succeed avoids pointless retry storms.
+- **No double emails.** The webhook and the receipt page share
+  `lib/sendReceipt.ts` and key on `receipt-<tx_ref>`, so whichever fires first
+  wins and the other is a no-op at the provider.
+
 > ### Before going live
 >
-> 1. **Replay.** There's no datastore, so redeemed `tx_ref`s aren't recorded and
->    a successful transaction id could be replayed to unlock again. Persist them.
-> 2. **Webhooks.** The redirect is the only completion signal. A user who closes
->    the tab mid-payment gets nothing, despite being charged. Add the Flutterwave
->    webhook and confirm against it.
+> **Replay.** There's no datastore, so redeemed `tx_ref`s aren't recorded and a
+> successful transaction id could be replayed to unlock the page again. The
+> email is already replay-safe via the idempotency key; the unlock is not.
 
 ## Receipt, redirect and email
 

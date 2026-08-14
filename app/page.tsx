@@ -1,8 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Welcome from "@/components/Welcome";
+import Analysing from "@/components/Analysing";
+import ShareCard from "@/components/ShareCard";
 import VibeCheck from "@/components/VibeCheck";
+import { ENCOURAGEMENT } from "@/data/encouragement";
+import { UNLOCK_PRICE_LABEL } from "@/lib/payment";
 import QuizFlow from "@/components/QuizFlow";
 import PhotoUpload from "@/components/PhotoUpload";
 import ResultCard from "@/components/ResultCard";
@@ -19,6 +23,8 @@ export default function Home() {
   const [sessionAnswers, setSessionAnswers] = useState<Answer[]>([]);
   const [photo, setPhoto] = useState<string | null>(null);
   const [roastLine, setRoastLine] = useState<string | null>(null);
+  const [revealing, setRevealing] = useState(false);
+  const [paywallOpen, setPaywallOpen] = useState(false);
   // Restore alongside the /api/roast call below when the AI roast comes back.
   // const [loadingRoast, setLoadingRoast] = useState(false);
   // Generated once per session so the ref code stays stable across re-renders
@@ -26,6 +32,17 @@ export default function Home() {
   const [refCode] = useState(
     () => `#NPD-${String(1000 + Math.floor(Math.random() * 8999))}`,
   );
+
+  // Shown once, a beat after the verdict lands — long enough to read your score
+  // first, soon enough that it can't be scrolled past. Dismissible, and the
+  // button above reopens it.
+  const offeredRef = useRef(false);
+  useEffect(() => {
+    if (stage !== "result" || revealing || offeredRef.current) return;
+    offeredRef.current = true;
+    const t = setTimeout(() => setPaywallOpen(true), 2600);
+    return () => clearTimeout(t);
+  }, [stage, revealing]);
 
   function handleQuizComplete(questions: Question[], answers: Answer[]) {
     setSessionQuestions(questions);
@@ -35,6 +52,7 @@ export default function Home() {
 
   async function handlePhotoDone(photoDataUrl: string | null) {
     setPhoto(photoDataUrl);
+    setRevealing(true);
     setStage("result");
 
     const score = scoreSession(sessionQuestions, sessionAnswers);
@@ -133,6 +151,17 @@ export default function Home() {
   const side = score.nepoPercent >= 50 ? "nepo" : "lapo";
   const tier = getTier(score.nepoPercent);
 
+  // The analysing beat: tension, then release. Skipped entirely for anyone who
+  // prefers reduced motion, and for the replay path where it'd just be a delay.
+  if (revealing) {
+    return (
+      <Analysing
+        percent={score.nepoPercent}
+        onDone={() => setRevealing(false)}
+      />
+    );
+  }
+
   return (
     <div className="px-6 py-10">
       <ResultCard
@@ -141,12 +170,35 @@ export default function Home() {
         side={side}
         roastLine={roastLine ?? tier.freeSummary}
         photo={photo}
-        refCode={refCode}
       />
 
-      {/* The breakdown now lives on /receipt, which the paywall redirects to
-          once payment clears — so it survives a refresh and a 3DS round trip. */}
-      <Paywall />
+      {/*
+        One line of warmth before the paywall. The people most likely to be
+        stung by this result — no safety net, real struggle — are the least
+        able to pay ₦499 to be told something kind, so the kind thing can't sit
+        entirely behind the paywall.
+      */}
+      <p
+        className="max-w-[300px] mx-auto mt-4 text-[13px] leading-relaxed text-center"
+        style={{ color: "var(--on-dark-muted)" }}
+      >
+        {ENCOURAGEMENT[tier.key as keyof typeof ENCOURAGEMENT].reading}
+      </p>
+
+      {/* Always visible, above the share row: this is the thing being sold, so
+          it shouldn't sit below content people scroll past. */}
+      <button
+        onClick={() => setPaywallOpen(true)}
+        className="btn-primary max-w-[300px] w-full mx-auto mt-4 py-3 rounded-md text-sm font-medium block"
+      >
+        Unlock my full breakdown &mdash; {UNLOCK_PRICE_LABEL}
+      </button>
+
+      <ShareCard percent={score.nepoPercent} tierTitle={tier.title} side={side} />
+
+      {/* The breakdown lives on /receipt, which the paywall redirects to once
+          payment clears — so it survives a refresh and a 3DS round trip. */}
+      <Paywall open={paywallOpen} onClose={() => setPaywallOpen(false)} />
     </div>
   );
 }
