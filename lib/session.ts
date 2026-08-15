@@ -47,6 +47,19 @@ export function saveSession(session: StoredSession): void {
   write({ ...session, photo: null });
 }
 
+/**
+ * Patches just the roast onto whatever is already stored.
+ *
+ * The AI line can land after the photo step and after checkout has recorded a
+ * charge, so a whole-session overwrite here would silently discard the user's
+ * picture — or worse, the tx_ref needed to verify their payment.
+ */
+export function saveSessionRoast(roastLine: string): void {
+  const session = loadSession();
+  if (!session) return;
+  saveSession({ ...session, roastLine });
+}
+
 export function loadSession(): StoredSession | null {
   if (typeof window === "undefined") return null;
   try {

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimited } from "@/lib/rateLimit";
 import { EmailConfigError } from "@/lib/email";
 import { FlutterwaveConfigError } from "@/lib/flutterwave";
 import { maskEmail, sendReceiptFor } from "@/lib/sendReceipt";
@@ -19,6 +20,9 @@ import { isPlausibleTransactionInput, verifyTransaction } from "@/lib/verifyTran
  * can't declare its own result either.
  */
 export async function POST(req: NextRequest) {
+  const limited = await rateLimited(req, { name: "send-receipt", limit: 5, windowSec: 60 });
+  if (limited) return limited;
+
   let body: { transactionId?: unknown; txRef?: unknown; answers?: unknown; refCode?: unknown };
   try {
     body = await req.json();
@@ -51,7 +55,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ sent: false, reason: result.reason }, { status: 422 });
     }
 
-    return NextResponse.json({ sent: true, to: maskEmail(result.to) });
+    return NextResponse.json({
+      sent: true,
+      to: maskEmail(result.to),
+      roastLine: result.roastLine,
+    });
   } catch (err) {
     if (err instanceof EmailConfigError) {
       return NextResponse.json({ sent: false, reason: "email_not_configured" }, { status: 503 });

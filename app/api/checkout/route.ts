@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimited } from "@/lib/rateLimit";
 import { decodeAnswers, encodeAnswers } from "@/lib/answersCodec";
 import { FlutterwaveConfigError, flwFetch } from "@/lib/flutterwave";
 import {
@@ -24,6 +25,9 @@ import {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
+  const limited = await rateLimited(req, { name: "checkout", limit: 5, windowSec: 60 });
+  if (limited) return limited;
+
   let body: { email?: unknown; answers?: unknown; refCode?: unknown };
   try {
     body = await req.json();

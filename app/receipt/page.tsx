@@ -50,6 +50,7 @@ interface RebuiltResult {
   side: "nepo" | "lapo";
   tierKey: string;
   breakdown: BreakdownRow[];
+  roastLine?: string;
 }
 
 export default function ReceiptPage() {
@@ -60,6 +61,8 @@ export default function ReceiptPage() {
   const [txRef, setTxRef] = useState<string | null>(null);
   const [mail, setMail] = useState<MailState>("sending");
   const [maskedEmail, setMaskedEmail] = useState<string | null>(null);
+  // The paid roast, generated server-side once the payment cleared.
+  const [paidRoast, setPaidRoast] = useState<string | null>(null);
   const sent = useRef(false);
 
   const emailReceipt = useCallback(
@@ -86,6 +89,7 @@ export default function ReceiptPage() {
         const data = await res.json();
         if (data.sent) {
           setMaskedEmail(data.to ?? null);
+          if (data.roastLine) setPaidRoast(data.roastLine);
           setMail("sent");
         } else {
           setMail(data.reason === "email_not_configured" ? "not_configured" : "failed");
@@ -131,6 +135,13 @@ export default function ReceiptPage() {
         setMethod(data.method ?? null);
         setTxRef(tx.ref);
 
+        // Fire the email the moment the payment is confirmed, before working
+        // out what this page can render. Whether we can *display* the result
+        // and whether the buyer gets *emailed* it are separate concerns — one
+        // failing must not take the other with it. The server rebuilds from the
+        // transaction's own answers, so this works even with no local session.
+        void emailReceipt(stored, tx);
+
         // No local answers — the tab was closed, the phone killed the app
         // during checkout, or this link was opened on another device. The
         // answers travelled with the transaction for exactly this case, so
@@ -147,8 +158,8 @@ export default function ReceiptPage() {
 
           if (rebuiltData.ok && rebuiltData.result) {
             setRebuilt(rebuiltData.result);
+            if (rebuiltData.result.roastLine) setPaidRoast(rebuiltData.result.roastLine);
             setState("ready");
-            void emailReceipt(null, tx);
             return;
           }
 
@@ -158,7 +169,6 @@ export default function ReceiptPage() {
 
         setSession(stored);
         setState("ready");
-        void emailReceipt(stored, tx);
       } catch {
         if (!cancelled) setState("unpaid");
       }
@@ -219,7 +229,7 @@ export default function ReceiptPage() {
 
   // Two sources, one shape: the answers this tab still holds, or the copy the
   // server rebuilt from the transaction. Everything below renders the same
-  // either way — only the optional photo is local-only.
+  // either way.
   const stored = session;
   const localScore = stored ? scoreSession(stored.questions, stored.answers) : null;
 
@@ -253,7 +263,7 @@ export default function ReceiptPage() {
         tier={tier}
         percent={percent}
         side={side}
-        roastLine={stored?.roastLine ?? tier.freeSummary}
+        roastLine={paidRoast ?? stored?.roastLine ?? tier.freeSummary}
         photo={stored?.photo ?? null}
       />
 

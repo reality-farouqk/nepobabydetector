@@ -115,8 +115,7 @@ after paying on Flutterwave's page.
 Because leaving the site destroys React state, a run of the quiz is persisted to
 `sessionStorage` (`lib/session.ts`). The `tx_ref` is recorded *before* the
 redirect — not on success — since the browser leaves before any success handler
-could run. Photos are dropped first if the write hits the storage quota; losing
-the picture beats losing the paid-for result.
+could run.
 
 On arrival `/receipt` reads `transaction_id` / `tx_ref` from the query string
 (falling back to the stored session), re-verifies server-side, renders the full
@@ -124,7 +123,7 @@ line-by-line analysis, and calls `/api/send-receipt`.
 
 ### What the email contains
 
-Receipt (amount, method, reference, date), the result, every answer with which
+Receipt (amount, method, date), the result, every answer with which
 way it leaned, an honest reading of what the score actually measured, and a
 closing section of encouragement written per tier in `data/encouragement.ts`.
 The tone deliberately shifts there — the app is a joke, that part isn't.
@@ -140,6 +139,98 @@ one function.
 > transaction id would turn the endpoint into an open mail relay. Both checks
 > live in `lib/verifyTransaction.ts` so the unlock and the email can never drift
 > apart.
+
+## The roast line — a paid feature
+
+**Free results** carry the tier's own `freeSummary`. **Paid results** get a line
+written about that specific person: their most extreme answers go to Groq
+(`llama-3.1-8b-instant`) and come back as one short Nigerian-pidgin-flavoured
+roast referencing those answers by content.
+
+Generation lives in `lib/roast.ts` and runs **only after a payment verifies** —
+inside `sendReceiptFor` and `/api/receipt-data`. There is deliberately no
+`/api/roast` route: an unauthenticated endpoint that spends our API key is an
+open LLM anyone can farm, and money spent on visitors who never convert.
+
+The same generated line goes to both the receipt page and the email, because
+`sendReceiptFor` returns it rather than each path generating its own — at
+temperature 0.9 two calls would produce two different roasts for one purchase.
+
+Set `GROQ_API_KEY` to switch it on. Without it — or on any failure, rate limit or
+timeout — paid users fall back to the pre-written pool in `lib/roastFallback.ts`.
+Nobody who paid ever gets nothing.
+
+### Why the paywall doesn't hurt the share loop
+
+The shared certificate image (`/api/share-image`) and the `/r/` landing page
+render `tier.freeSummary`, never the roast — they always have. So what people
+post is identical either way, and moving the roast behind the paywall costs
+nothing in acquisition while giving the ₦499 something extra to be.
+
+### Cost
+
+Roughly 250 input + 40 output tokens per roast, and now only for converters.
+Groq's free tier (no card) is ~500k tokens/day; beyond that it's ~$0.02 per
+1,000 roasts, so one ₦499 sale covers around 19,000. Rate limits are org-level
+and the burst cap is ~30 requests/minute; exceeding either degrades to the
+fallback rather than erroring.
+
+### The photo is decorative
+
+There is an optional step before the reveal that puts a picture on the
+certificate. **It never leaves the device** — it is held as a data URL in
+`sessionStorage`, drawn into the card, and nothing uploads it.
+
+It is deliberately *not* fed to the roast. `photoDescription` is still `null`,
+because doing it honestly means a vision pre-pass extracting flex-only cues
+(outfit, background) and sending user photographs to a third party — a second AI
+call inside the reveal budget, and a privacy decision worth taking on purpose
+rather than by accident. The screen's copy describes what actually happens
+instead of promising personalisation it doesn't deliver.
+
+One consequence worth knowing: the shared certificate image
+(`/api/share-image`) is rendered server-side and has no access to the photo, so
+a shared card shows the seal alone while the on-screen one shows the picture.
+
+> **The prompt's safety constraints are load-bearing.** This app roasts people
+> about class, which is exactly where a model can produce something genuinely
+> nasty. The prompt forbids commenting on appearance, body, race, tribe or
+> religion and confines the joke to money/privilege/hustle. Re-test that boundary
+> if the model or prompt changes — don't assume it holds.
+
+## Rate limiting
+
+Every API route is unauthenticated, so `lib/rateLimit.ts` caps them per client
+IP with a fixed window:
+
+| Route | Limit | Why |
+| --- | --- | --- |
+| `/api/checkout` | 5/min | A real buyer hits this once or twice; the rest is headroom for retries. |
+| `/api/verify-payment` | 30/min | `/receipt` polls this while a bank transfer clears. |
+| `/api/receipt-data` | 10/min | Called once per receipt view. |
+| `/api/send-receipt` | 5/min | Called once per purchase. |
+
+`/api/webhooks/flutterwave` is **deliberately exempt** — it is authenticated by
+`verif-hash`, and Flutterwave retries from its own IPs. Rate limiting it would
+break the safety net that catches buyers who close the tab.
+
+`/api/share-image` is exempt too: `p` is clamped to 0–100, so there are only 101
+possible images and they are cached `immutable`.
+
+**Two backends.** With `UPSTASH_REDIS_REST_URL` + `_TOKEN` set, counters are
+shared across serverless instances and the limit is the real limit — over the
+REST API, so no SDK and no new dependency. Without them it falls back to
+per-instance memory, which works immediately with zero config but is only a
+speed bump on Vercel, where a burst spread across instances gets a fresh
+allowance each time.
+
+**It fails open.** If the store errors, the request is allowed. These routes take
+money and deliver paid results; briefly letting an abuser through beats turning
+away a paying customer because Redis hiccuped.
+
+> Still open: **replay.** A successful transaction id can be re-submitted to
+> unlock the page again. The email is replay-safe via its idempotency key; the
+> page is not. The fix is the same Upstash store — record redeemed `tx_ref`s.
 
 ## Brand palette
 

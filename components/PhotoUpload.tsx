@@ -30,10 +30,10 @@ export default function PhotoUpload({
         className="text-xl mb-2"
         style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "var(--butter)" }}
       >
-        Add a pic for a fully personalized roast
+        Put your face on the certificate
       </h2>
       <p className="text-sm mb-6" style={{ color: "var(--on-dark-muted)" }}>
-        We only use it to write your roast line, then throw it away — nothing is stored. Skip if
+        It stays on your device and never leaves it &mdash; we don&apos;t upload or store it. Skip if
         you&apos;d rather not.
       </p>
 

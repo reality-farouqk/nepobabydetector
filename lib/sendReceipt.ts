@@ -3,6 +3,7 @@ import { decodeAnswers, questionsForAnswers } from "@/lib/answersCodec";
 import { sendEmail } from "@/lib/email";
 import { UNLOCK_PRICE_LABEL, paymentTypeLabel } from "@/lib/payment";
 import { buildReceiptEmail } from "@/lib/receiptEmail";
+import { generateRoast } from "@/lib/roast";
 import { scoreSession } from "@/lib/scoring";
 import { VerifiedTransaction } from "@/lib/verifyTransaction";
 
@@ -20,7 +21,7 @@ import { VerifiedTransaction } from "@/lib/verifyTransaction";
  */
 
 export type ReceiptOutcome =
-  | { sent: true; to: string }
+  | { sent: true; to: string; roastLine: string }
   | { sent: false; reason: "no_customer_email" | "no_answers" | "undefined_score" };
 
 export async function sendReceiptFor(
@@ -42,11 +43,17 @@ export async function sendReceiptFor(
   }
 
   const tier = getTier(score.nepoPercent);
+
+  // Generated here, after the payment is confirmed — this is the paid feature.
+  // Returned to the caller too, so the receipt page can show the same line the
+  // email quotes rather than generating a second, different one.
+  const roastLine = await generateRoast(tier, score.breakdown);
+
   const { subject, html, text } = buildReceiptEmail({
     tier,
     percent: score.nepoPercent,
     side: score.nepoPercent >= 50 ? "nepo" : "lapo",
-    roastLine: tier.freeSummary,
+    roastLine,
     breakdown: score.breakdown,
     receipt: {
       reference: transaction.txRef,
@@ -65,7 +72,7 @@ export async function sendReceiptFor(
     idempotencyKey: `receipt-${transaction.txRef}`,
   });
 
-  return { sent: true, to: transaction.customerEmail };
+  return { sent: true, to: transaction.customerEmail, roastLine };
 }
 
 /** So the UI can say "sent to j••••@gmail.com" without echoing the address. */

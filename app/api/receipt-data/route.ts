@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimited } from "@/lib/rateLimit";
 import { getTier } from "@/data/tiers";
 import { decodeAnswers, questionsForAnswers } from "@/lib/answersCodec";
 import { FlutterwaveConfigError } from "@/lib/flutterwave";
 import { paymentTypeLabel } from "@/lib/payment";
+import { generateRoast } from "@/lib/roast";
 import { scoreSession } from "@/lib/scoring";
 import { isPlausibleTransactionInput, verifyTransaction } from "@/lib/verifyTransaction";
 
@@ -20,6 +22,9 @@ import { isPlausibleTransactionInput, verifyTransaction } from "@/lib/verifyTran
  * reads them back, and recomputes the score server-side.
  */
 export async function POST(req: NextRequest) {
+  const limited = await rateLimited(req, { name: "receipt-data", limit: 10, windowSec: 60 });
+  if (limited) return limited;
+
   let body: { transactionId?: unknown; txRef?: unknown };
   try {
     body = await req.json();
@@ -66,6 +71,8 @@ export async function POST(req: NextRequest) {
     }
 
     const tier = getTier(score.nepoPercent);
+    // Paid, so this person gets the personalised line.
+    const roastLine = await generateRoast(tier, score.breakdown);
 
     return NextResponse.json({
       ok: true,
@@ -76,6 +83,7 @@ export async function POST(req: NextRequest) {
         side: score.nepoPercent >= 50 ? "nepo" : "lapo",
         tierKey: tier.key,
         breakdown: score.breakdown,
+        roastLine,
       },
     });
   } catch (err) {

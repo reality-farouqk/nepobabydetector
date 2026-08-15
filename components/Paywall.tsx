@@ -79,8 +79,12 @@ export default function Paywall({ open, onClose }: { open: boolean; onClose: () 
         setError(
           data.error === "not_configured"
             ? "Checkout isn't switched on yet. Nothing was charged."
-            : (data.detail ??
-              "The detector couldn't open checkout. Nothing was charged — give it another go."),
+            : data.error === "rate_limited"
+              ? // "Try again" is the wrong advice here — trying again is
+                // precisely what's being refused.
+                `Too many attempts. Wait about ${data.retryAfter ?? 60} seconds, then try once more. Nothing was charged.`
+              : (data.detail ??
+                "The detector couldn't open checkout. Nothing was charged — give it another go."),
         );
         return;
       }

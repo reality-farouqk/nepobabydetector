@@ -52,8 +52,23 @@ export async function sendEmail({
     cache: "no-store",
   });
 
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`Email send failed: ${res.status} ${detail.slice(0, 200)}`);
-  }
+  if (res.ok) return;
+
+  const detail = await res.text().catch(() => "");
+
+  /**
+   * 409 means this idempotency key was already used — an email for this
+   * transaction has already been accepted, which is exactly the outcome we
+   * wanted. Treat it as success.
+   *
+   * Resend also 409s when the key is reused with a *different* body, which is
+   * the normal case here: the roast is regenerated per call and comes back
+   * different every time (temperature 0.9). Without this, the second sender —
+   * usually the webhook arriving after the receipt page already sent — would
+   * throw, return 500, and have Flutterwave retry three times over 90 minutes
+   * to re-send an email the buyer already has.
+   */
+  if (res.status === 409) return;
+
+  throw new Error(`Email send failed: ${res.status} ${detail.slice(0, 200)}`);
 }

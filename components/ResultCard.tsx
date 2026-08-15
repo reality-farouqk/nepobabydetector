@@ -58,29 +58,22 @@ export default function ResultCard({
 
       <div className="px-6 pb-5 pt-2 flex flex-col" style={{ height: dims.h - 40 }}>
         <div className="flex items-end justify-center gap-3" style={{ marginTop: -34 }}>
-          <div
-            className="flex-shrink-0 rounded-lg flex items-center justify-center relative"
-            style={{
-              width: format === "portrait" ? 78 : 56,
-              height: format === "portrait" ? 78 : 56,
-              background: photo ? "var(--lilac)" : "var(--lilac-200)",
-              border: photo ? "1.5px solid var(--ink)" : "1.5px dashed var(--gold)",
-            }}
-          >
-            {photo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={photo} alt="" className="w-full h-full object-cover rounded-md" />
-            ) : (
-              <span
-                className="text-[8px] uppercase text-center px-1 leading-tight"
-                style={{ fontFamily: "var(--font-mono)", color: "var(--muted-2)" }}
-              >
-                Photo
-                <br />
-                optional
-              </span>
-            )}
-          </div>
+          {/* Only drawn when there's actually a picture. An empty dashed
+              placeholder on every certificate reads as a bug rather than an
+              option — and the seal centres itself when this isn't here. */}
+          {photo && (
+            <div
+              className="flex-shrink-0 rounded-lg overflow-hidden"
+              style={{
+                width: format === "portrait" ? 78 : 56,
+                height: format === "portrait" ? 78 : 56,
+                border: "1.5px solid var(--ink)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={photo} alt="" className="w-full h-full object-cover" />
+            </div>
+          )}
 
           <svg width={dims.stamp} height={dims.stamp} viewBox="0 0 132 132">
             <defs>

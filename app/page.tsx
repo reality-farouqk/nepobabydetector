@@ -25,8 +25,6 @@ export default function Home() {
   const [roastLine, setRoastLine] = useState<string | null>(null);
   const [revealing, setRevealing] = useState(false);
   const [paywallOpen, setPaywallOpen] = useState(false);
-  // Restore alongside the /api/roast call below when the AI roast comes back.
-  // const [loadingRoast, setLoadingRoast] = useState(false);
   // Generated once per session so the ref code stays stable across re-renders
   // (otherwise unlocking the breakdown would silently reissue it).
   const [refCode] = useState(
@@ -44,59 +42,36 @@ export default function Home() {
     return () => clearTimeout(t);
   }, [stage, revealing]);
 
+  /**
+   * Scores from the arguments rather than from state: these setters haven't
+   * flushed yet at this point, so reading `sessionAnswers` here would score the
+   * previous nine answers.
+   *
+   */
   function handleQuizComplete(questions: Question[], answers: Answer[]) {
     setSessionQuestions(questions);
     setSessionAnswers(answers);
     setStage("photo");
+
+    const score = scoreSession(questions, answers);
+    if (score.isUndefined || score.nepoPercent === null) return;
+
+    // Free results carry the tier's written line. The personalised roast is a
+    // paid feature now, generated server-side once payment clears.
+    setRoastLine(getTier(score.nepoPercent).freeSummary);
   }
 
-  async function handlePhotoDone(photoDataUrl: string | null) {
+  function handlePhotoDone(photoDataUrl: string | null) {
     setPhoto(photoDataUrl);
     setRevealing(true);
     setStage("result");
 
-    const score = scoreSession(sessionQuestions, sessionAnswers);
-    let line: string | null = null;
-
-    if (!score.isUndefined && score.nepoPercent !== null) {
-      const tier = getTier(score.nepoPercent);
-
-      // The AI roast line is parked for now — every result uses its tier's
-      // written summary instead. `app/api/roast/route.ts` and
-      // `lib/roastFallback.ts` are left intact so this is a one-block revert.
-      //
-      // setLoadingRoast(true);
-      // try {
-      //   const res = await fetch("/api/roast", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({
-      //       tierKey: tier.key,
-      //       tierTitle: tier.title,
-      //       extremeAnswers: score.extremeAnswers,
-      //       // photoDescription would come from a vision-model pre-pass on
-      //       // `photoDataUrl` extracting only flex-relevant cues (outfit,
-      //       // background) — never the raw image.
-      //       photoDescription: null,
-      //     }),
-      //   });
-      //   const data = await res.json();
-      //   line = data.line;
-      // } catch {
-      //   line = tier.freeSummary;
-      // }
-      // setLoadingRoast(false);
-
-      line = tier.freeSummary;
-      setRoastLine(line);
-    }
-
-    // Persisted so the result survives the trip to /receipt — and the trip to
-    // the user's bank and back, if they pay by card.
+    // Written now that the photo is known. `roastLine` may still be the tier
+    // line here; fetchRoast re-saves when the AI version lands.
     saveSession({
       questions: sessionQuestions,
       answers: sessionAnswers,
-      roastLine: line,
+      roastLine,
       refCode,
       photo: photoDataUrl,
       charge: null,

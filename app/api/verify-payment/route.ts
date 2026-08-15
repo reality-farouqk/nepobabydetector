@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimited } from "@/lib/rateLimit";
 import { FlutterwaveConfigError } from "@/lib/flutterwave";
 import { paymentTypeLabel } from "@/lib/payment";
 import { isPlausibleTransactionInput, verifyTransaction } from "@/lib/verifyTransaction";
@@ -18,6 +19,9 @@ import { isPlausibleTransactionInput, verifyTransaction } from "@/lib/verifyTran
  * a database — that's also where a webhook handler should write.
  */
 export async function POST(req: NextRequest) {
+  const limited = await rateLimited(req, { name: "verify", limit: 30, windowSec: 60 });
+  if (limited) return limited;
+
   let body: { transactionId?: unknown; txRef?: unknown };
   try {
     body = await req.json();
